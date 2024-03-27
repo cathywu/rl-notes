@@ -23,7 +23,9 @@ class GridWorld(MDP):
         action_cost=0.0,
         initial_state=(0, 0),
         goals=None,
+        max_episode_length=10000,
     ):
+        self.step = 0
         self.noise = noise
         self.width = width
         self.height = height
@@ -156,7 +158,7 @@ class GridWorld(MDP):
         return self.discount_factor
 
     def is_terminal(self, state):
-        if state == self.TERMINAL:
+        if state == self.TERMINAL or self.step >= max_episode_length:
             return True
         return False
 

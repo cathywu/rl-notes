@@ -5,7 +5,7 @@ class ModelFreeReinforcementLearner:
         self.alpha = alpha
         self.qfunction = qfunction
 
-    def execute(self, episodes=100):
+    def execute(self, episodes=100, visualize=False):
 
         for i in range(episodes):
             state = self.mdp.get_initial_state()
@@ -21,6 +21,16 @@ class ModelFreeReinforcementLearner:
                 self.qfunction.update(state, action, delta)
                 state = next_state
                 action = next_action
+            if visualize:
+                import time
+                from IPython.display import display, clear_output
+                from random import uniform
+                clear_output(wait=True)
+                print('Iteration', i, end='\r')
+                # display('Iteration ' + str(i) + ' Score: ' + str(uniform(0, 1)))
+                self.mdp.visualise_q_function(self.qfunction)
+                time.sleep(0.001)
+
 
     """ Calculate the delta for the update """
 
