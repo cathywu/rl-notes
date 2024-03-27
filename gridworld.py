@@ -23,9 +23,10 @@ class GridWorld(MDP):
         action_cost=0.0,
         initial_state=(0, 0),
         goals=None,
-        max_episode_length=10000,
+        # max_episode_length=10000,
     ):
-        self.step = 0
+        # self.step = 0
+        # self.max_episode_length = max_episode_length
         self.noise = noise
         self.width = width
         self.height = height
@@ -153,12 +154,11 @@ class GridWorld(MDP):
         step = len(self.episode_rewards)
         self.episode_rewards += [reward * (self.discount_factor ** step)]
         return reward
-
     def get_discount_factor(self):
         return self.discount_factor
 
     def is_terminal(self, state):
-        if state == self.TERMINAL or self.step >= max_episode_length:
+        if state == self.TERMINAL:
             return True
         return False
 
