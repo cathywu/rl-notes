@@ -16,7 +16,7 @@ class PolicyGradient:
             state = self.mdp.get_initial_state()
             episode_reward = 0
             while not self.mdp.is_terminal(state):
-                action = self.policy.select_action(state)
+                action = self.policy.select_action(state, self.mdp.get_actions(state))
                 next_state, reward = self.mdp.execute(state, action)
 
                 # Store the information from this step of the trajectory

@@ -57,7 +57,8 @@ class MDP:
         cumulative_probability = 0.0
         for (new_state, probability) in self.get_transitions(state, action):
             if cumulative_probability <= rand <= probability + cumulative_probability:
-                return (new_state, self.get_reward(state, action, new_state))
+                reward = self.get_reward(state, action, new_state)
+                return (new_state, reward)
             cumulative_probability += probability
             if cumulative_probability >= 1.0:
                 raise (
@@ -76,11 +77,9 @@ class MDP:
 
     """ 
     Execute a policy on this mdp for a number of episodes.
-    Return the cumulative reward of each episode as a list.
-    When True, random_on_duplicate detects when a state has been visited before, and selects a random action to avoid infinitely looping policies.
     """
 
-    def execute_policy(self, policy, episodes=100, random_on_duplicate=False):
+    def execute_policy(self, policy, episodes=100):
         cumulative_rewards = []
         states = set()
         for _ in range(episodes):
@@ -88,12 +87,8 @@ class MDP:
             state = self.get_initial_state()
             step = 0
             while not self.is_terminal(state):
-                if state in states and random_on_duplicate:
-                    action = random.choice(self.get_actions(state))
-                else:
-                    action = policy.select_action(state)
-                    if random_on_duplicate: states.add(state)
-
+                actions = self.get_actions(state)
+                action = policy.select_action(state, actions)
                 (next_state, reward) = self.execute(state, action)
                 cumulative_reward += reward * (self.discount_factor ** step)
                 state = next_state

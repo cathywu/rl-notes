@@ -1,5 +1,5 @@
 class Policy:
-    def select_action(self, state):
+    def select_action(self, state, action):
         abstract
 
 

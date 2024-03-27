@@ -7,7 +7,7 @@ class TabularPolicy(DeterministicPolicy):
     def __init__(self, default_action=None):
         self.policy_table = defaultdict(lambda: default_action)
 
-    def select_action(self, state):
+    def select_action(self, state, actions):
         return self.policy_table[state]
 
     def update(self, state, action):

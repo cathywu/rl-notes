@@ -14,7 +14,7 @@ class ActorCritic:
 
             state = self.mdp.get_initial_state()
             while not self.mdp.is_terminal(state):
-                action = self.actor.select_action(state)
+                action = self.actor.select_action(state, self.mdp.get_actions(state))
                 next_state, reward = self.mdp.execute(state, action)
                 self.update_critic(reward, state, action, next_state)
 

@@ -2,6 +2,7 @@ from tabular_policy import TabularPolicy
 from tabular_value_function import TabularValueFunction
 from qtable import QTable
 
+
 class PolicyIteration:
     def __init__(self, mdp, policy):
         self.mdp = mdp
@@ -14,8 +15,11 @@ class PolicyIteration:
             new_values = TabularValueFunction()
             for state in self.mdp.get_states():
                 # Calculate the value of V(s)
+                actions = self.mdp.get_actions(state)
                 old_value = values.get_value(state)
-                new_value = values.get_q_value(self.mdp, state, policy.select_action(state))
+                new_value = values.get_q_value(
+                    self.mdp, state, policy.select_action(state, actions)
+                )
                 values.update(state, new_value)
                 delta = max(delta, abs(old_value - new_value))
 
@@ -25,7 +29,7 @@ class PolicyIteration:
 
         return values
 
-    """ Implmentation of policy iteration iteration. Returns the number of iterations exected """
+    """ Implmentation of policy iteration iteration. Returns the number of iterations executed """
 
     def policy_iteration(self, max_iterations=100, theta=0.001):
 
@@ -36,7 +40,8 @@ class PolicyIteration:
             policy_changed = False
             values = self.policy_evaluation(self.policy, values, theta)
             for state in self.mdp.get_states():
-                old_action = self.policy.select_action(state)
+                actions = self.mdp.get_actions(state)
+                old_action = self.policy.select_action(state, actions)
 
                 q_values = QTable()
                 for action in self.mdp.get_actions(state):

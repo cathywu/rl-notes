@@ -1,6 +1,6 @@
-from model_free_reinforcement_learner import ModelFreeReinforcementLearner
+from temporal_difference_learner import TemporalDifferenceLearner
 
 
-class SARSA(ModelFreeReinforcementLearner):
+class SARSA(TemporalDifferenceLearner):
     def state_value(self, state, action):
         return self.qfunction.get_q_value(state, action)

@@ -22,7 +22,7 @@ class LogisticRegressionPolicy(StochasticPolicy):
 
     """ Select one of the two actions using the logistic function for the given state """
 
-    def select_action(self, state):
+    def select_action(self, state, actions):
         # Get the probability of selecting the first action
         probability = self.get_probability(state, self.actions[0])
 

@@ -13,6 +13,14 @@ class QFunction:
     def get_q_value(self, state, action):
         abstract
 
+    """ Save a policy to a specified filename """
+    def save_policy(self, filename):
+        abstract
+
+    """ Load a policy from a specified filename """
+    def load_policy(self, filename):
+        abstract
+
     """ Return a pair containing the action and Q-value, where the
         action has the maximum Q-value in state
     """

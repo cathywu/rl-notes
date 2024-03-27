@@ -40,7 +40,7 @@ class DeepNeuralNetworkPolicy(StochasticPolicy):
 
     """ Select an action using a forward pass through the network """
 
-    def select_action(self, state):
+    def select_action(self, state, actions):
         # Convert the state into a tensor so it can be passed into the network
         state = torch.as_tensor(state, dtype=torch.float32)
         action_logits = self.policy_network(state)

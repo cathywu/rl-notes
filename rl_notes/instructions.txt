@@ -1,0 +1,22 @@
+Most files in the code have a corresponding main function that can be run using:
+
+ python tests/main_<module>.py
+
+For example:
+
+ python test/main_value_iteration.py
+
+For most of these, no external libraries are required. Output will be printed as text.
+
+However, if you want to plot the graphs or draw the trees, you will need to install:
+
+- The Matplotlib (https://matplotlib.org/) library for plotting graphs. 
+  You can download from the website  or install with pip install matplotlib.
+
+- The Scipy library (https://www.scipy.org/) for helping with the graph plotting. 
+  You can download from the website or install with pip install scipy.
+
+- The Graphviz Python library (https://graphviz.readthedocs.io/en/stable/) for drawing game trees. 
+  You can download from the website or use 'pip install graphviz'. 
+  To render the generated graphs, you will also need to install 
+  Graphviz  the tool (https://www.graphviz.org/download/), which is called by the Python package.
