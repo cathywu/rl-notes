@@ -257,7 +257,7 @@ class GridWorld(MDP):
         else:
             print(self.value_function_to_string(value_function, title=title))
 
-    def visualise_q_function(self, qfunction, title="", grid_size=1.5, gif=False):
+    def visualise_q_function(self, qfunction, title="", grid_size=1.0, gif=False):
         if self.matplotlib_installed():
             return self.visualise_q_function_as_image(qfunction, title=title, grid_size=grid_size, gif=gif)
         else:
@@ -668,7 +668,7 @@ class GridWorld(MDP):
                         x,
                         y + 0.35,
                         f"{up_value:+0.2f}",
-                        fontsize="medium",
+                        fontsize="small",
                         horizontalalignment="center",
                         verticalalignment="top",
                         color='lightgrey' if up_value == 0.0 else 'black',
@@ -677,7 +677,7 @@ class GridWorld(MDP):
                         x,
                         y - 0.35,
                         f"{down_value:+0.2f}",
-                        fontsize="medium",
+                        fontsize="small",
                         horizontalalignment="center",
                         verticalalignment="bottom",
                         color='lightgrey' if down_value == 0.0 else 'black',
@@ -686,7 +686,7 @@ class GridWorld(MDP):
                         x - 0.45,
                         y,
                         f"{left_value:+0.2f}",
-                        fontsize="medium",
+                        fontsize="small",
                         horizontalalignment="left",
                         verticalalignment="center",
                         color='lightgrey' if left_value == 0.0 else 'black'
@@ -695,7 +695,7 @@ class GridWorld(MDP):
                         x + 0.45,
                         y,
                         f"{right_value:+0.2f}",
-                        fontsize="medium",
+                        fontsize="small",
                         horizontalalignment="right",
                         verticalalignment="center",
                         color='lightgrey' if right_value == 0.0 else 'black'
