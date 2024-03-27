@@ -23,10 +23,10 @@ class GridWorld(MDP):
         action_cost=0.0,
         initial_state=(0, 0),
         goals=None,
-        # max_episode_length=10000,
+        max_episode_length=10000,
     ):
-        # self.step = 0
-        # self.max_episode_length = max_episode_length
+        self.eps_step = 0
+        self.max_episode_length = max_episode_length
         self.noise = noise
         self.width = width
         self.height = height
@@ -76,6 +76,7 @@ class GridWorld(MDP):
 
     def get_initial_state(self):
         self.episode_rewards = []
+        self.eps_step = 0
         return self.initial_state
 
     def get_goal_states(self):
@@ -838,10 +839,16 @@ class GridWorld(MDP):
         plt.show()
 
     def execute(self, state, action):
+        self.eps_step += 1
         if state in self.goal_states:
             self.rewards += [self.episode_rewards]
             self.cumulative_rewards += [sum(self.episode_rewards)]
             return MDP.execute(self, state=state, action=self.TERMINATE)
+        elif self.eps_step >= self.max_episode_length:
+            # print(len(self.episode_rewards))
+            self.rewards += [self.episode_rewards]
+            self.cumulative_rewards += [sum(self.episode_rewards)]
+            return MDP.execute(self, state=list(self.goal_states.keys())[0], action=self.TERMINATE)
         return super().execute(state, action)
 
     def visualise_stochastic_policy_as_image(self, policy, title="", grid_size=1.5, gif=False):
